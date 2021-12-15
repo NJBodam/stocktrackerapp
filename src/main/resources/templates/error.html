@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Error Page</title>
+  <link rel="stylesheet" href="css/error.css">
+</head>
+<body>
+<!--<h1><span th:text="${errorMessage}"></span> Please retry your action again</h1>-->
+<!--<a href="/register">Navigate to registration</a>-->
+<!--<a href="/login">Navigate to login</a>-->
+
+<section class="error-body">
+  <video preload="auto" class="background" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/396624/err.mp4" autoplay muted loop></video>
+  <div class="message">
+    <h1 t="404">404</h1>
+    <div class="bottom">
+      <p><span th:text="${errorMessage}"></span></p>
+      <a href='#' th:href="${errorLink}"><span th:text="${errorNotice}"></span></a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

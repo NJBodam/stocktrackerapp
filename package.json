@@ -1,0 +1,7 @@
+{
+  "name": "stocktrackerapp",
+  "version": "1.0.0",
+  "devDependencies": {
+    "apexcharts": "^3.32.0"
+  }
+}
