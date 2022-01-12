@@ -1,82 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styletwo.css">
     <title>Apex Chart</title>
-</head>
+    </head>
+
+    <div id="quote-module">
+        <div class="separator"></div>
+
+        <h1 class="company-name"><span class="company-name"></span></h1>
+
+        <div class="container large">
+            <span class="last-price" th:text="${bigPrice}"></span>
+            <span class="change"></span>
+            <span class="change-percent"></span>
+        </div>
+
+        <div class="container">
+            <div class="label">Range</div>
+            <div class="data high-low">
+                <span class="high val"></span>
+                <span> - </span>
+                <span class="low val"></span>
+            </div>
+            <div class="label">Open</div>
+            <div class="data opening"></div>
+            <div class="label">Volume</div>
+            <div class="data volume"></div>
+            <div class="label">Market Cap</div>
+            <div class="data market-cap"></div>
+        </div>
+
+        <p class="time-stamp"> </p>
+
+        <div class="container">
+            <input type="text" placeholder="ticker symbol">
+            <button type="button" class="get-value">Get New Quote</button>
+        </div>
+    </div>
+
 <body>
-<h1>Apex Chart</h1>
-<div id="chart"></div>
-<script>
-    var options = {
-        series: [{
-            name: 'XYZ MOTORS',
-            data: dates
-        }],
-        chart: {
-            type: 'area',
-            stacked: false,
-            height: 350,
-            zoom: {
-                type: 'x',
-                enabled: true,
-                autoScaleYaxis: true
-            },
-            toolbar: {
-                autoSelected: 'zoom'
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        markers: {
-            size: 0,
-        },
-        title: {
-            text: 'Stock Price Movement',
-            align: 'left'
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                inverseColors: false,
-                opacityFrom: 0.5,
-                opacityTo: 0,
-                stops: [0, 90, 100]
-            },
-        },
-        yaxis: {
-            labels: {
-                formatter: function (val) {
-                    return (val / 1000000).toFixed(0);
-                },
-            },
-            title: {
-                text: 'Price'
-            },
-        },
-        xaxis: {
-            type: 'datetime',
-        },
-        tooltip: {
-            shared: false,
-            y: {
-                formatter: function (val) {
-                    return (val / 1000000).toFixed(0)
-                }
-            }
-        }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
-
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+<script type="module" src="./app.js"></script>
 </body>
 </html>

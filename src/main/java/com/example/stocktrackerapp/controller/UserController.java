@@ -1,6 +1,7 @@
 package com.example.stocktrackerapp.controller;
-
+import com.example.stocktrackerapp.model.StockWrapper;
 import com.example.stocktrackerapp.model.UserInfo;
+import com.example.stocktrackerapp.service.StockServices;
 import com.example.stocktrackerapp.service.serviceimplementation.StockServiceImpl;
 import com.example.stocktrackerapp.service.serviceimplementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     private UserServiceImpl userServiceImpl;
     private StockServiceImpl stockServiceImpl;
+    private StockServices stockServices;
 
 
     @Autowired
-    public UserController(UserServiceImpl userServiceImpl) {
+    public UserController(UserServiceImpl userServiceImpl, StockServiceImpl stockServiceImpl, StockServices stockServices ) {
         this.userServiceImpl = userServiceImpl;
+        this.stockServiceImpl = stockServiceImpl;
+        this.stockServices = stockServices;
     }
 
     @GetMapping("/register")
@@ -57,15 +61,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserInfo userInfo, Model model, HttpSession httpSession) {
+    public String login(@ModelAttribute UserInfo userInfo, Model model, HttpSession httpSession, StockWrapper stock) throws Exception {
         System.out.println("loginrequest" + userInfo);
         UserInfo authenticated = userServiceImpl.authenticate(userInfo.getEmail(), userInfo.getPassword());
         if (authenticated != null) {
+            model.addAttribute("bigPrice", stockServices.findPrice(stock));
+            System.out.println("bigPrices ==" + stockServices.findPrice(stock) );
             System.out.println("User " + authenticated + " logged in");
             httpSession.setAttribute("user", authenticated);
             model.addAttribute("userLogin", authenticated.getFirstname() + " " + authenticated.getLastname());
 
-            return "dashboard";
+            return "dashboard_charts";
         } else {
             String message = "Incorrect login details. Wrong email or password. ";
             model.addAttribute("errorMessage", message);
